@@ -2,7 +2,7 @@ const express = require('express')
 const multer = require('multer')
 require('./db/mongoose.js')
 
-var underMaintainance = false
+//var underMaintainance = false
 
 const userRouter = require('./routers/user.js')
 const taskRouter = require('./routers/task.js')
@@ -12,13 +12,15 @@ const port = process.env.PORT
 
 app.use(express.json())
 
-app.use((req,res,next) => {
-    if(underMaintainance){
-        return res.status(503).send('Server under maintainance')
-    }
-    next()
+// app.use((req,res,next) => {
+//     if(underMaintainance){
+//         return res.status(503).send('Server under maintainance')
+//     }
+//     next()
+// })
+app.get('/', (req,res)=>{
+    res.send('Welcome to Kanungo Task App')
 })
-
 app.use(taskRouter)
 app.use(userRouter)
 
